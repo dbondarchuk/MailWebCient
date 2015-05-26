@@ -1,0 +1,61 @@
+﻿@model GmailWebClient.Models.RegisterModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Gmail client. Login</title>
+        @Styles.Render("~/Content/login")
+        @Styles.Render("~/Content/font-awesome")
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400' rel='stylesheet' type='text/css'>
+
+    </head>
+<body>
+    @using(Ajax.BeginForm("Register", new AjaxOptions
+                                 {
+                                     HttpMethod = "Post",
+                                     OnComplete = "onComplete",
+                                     OnBegin = "onBegin"
+                                 }))
+    {
+        @Html.AntiForgeryToken()
+        
+        <h1>Gmail web client</h1>
+        <label class="error" id="error" style="display: none">Your login/password is wrong</label>
+        @Html.TextBoxFor(x => x.UserName, new {placeholder = Html.DisplayNameFor(x => x.UserName)})
+        @Html.ValidationMessageFor(x => x.UserName)
+        @Html.PasswordFor(x => x.Password, new {placeholder = Html.DisplayNameFor(x => x.Password)})
+        @Html.ValidationMessageFor(x => x.Password)
+        @Html.PasswordFor(x => x.ConfirmPassword, new {placeholder = Html.DisplayNameFor(x => x.ConfirmPassword)})
+        @Html.ValidationMessageFor(x => x.ConfirmPassword)
+            @Html.TextBoxFor(x => x.Email, new {placeholder = Html.DisplayNameFor(x => x.Email)})
+        @Html.ValidationMessageFor(x => x.Email)
+        @Html.PasswordFor(x => x.GmailPassword, new {placeholder = Html.DisplayNameFor(x => x.GmailPassword)})
+        @Html.ValidationMessageFor(x => x.GmailPassword)
+
+        <button type="submit">Register</button>
+        <span class="question">Have an account? @Html.ActionLink("Log in", "Login")</span>
+    }
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function onComplete(jqXhr, status) {
+            if (jqXhr.status === 200) {
+                window.location.href = '@Url.Action("Index", "Home")';
+            } else if (jqXhr.status === 400) {
+                $('#error').fadeIn(300);
+            }
+        }
+        
+        function onBegin() {
+            $('#error').fadeOut(300);
+        }
+    </script>    
+</body>
+</html>

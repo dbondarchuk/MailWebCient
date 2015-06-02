@@ -1,7 +1,7 @@
 ﻿window.messages = [];
 window.loaded = 0;
 
-function loadMessagesList(skip, take, clearList) {
+/*function loadMessagesList(skip, take, clearList) {
     var mailbox = $('#mailbox-list li.active').data('value');
     $.ajax({
         url: '/Home/GetMessageList',
@@ -56,7 +56,7 @@ function loadMessagesList(skip, take, clearList) {
             window.mask.hide($('#list'));
         }
     });
-}
+}*/
 
 function loadMessage(uid) {
     window.mask.show($('#main'));
@@ -309,6 +309,10 @@ function mask() {
         '</div>');
 
     function show($element, callback) {
+        if (typeof $element === "string") {
+            $element = $($element);
+        }
+
         $maskElement.hide();
         $element.append($maskElement);
         $maskElement.css('height', $element[0].scrollHeight);
@@ -316,6 +320,10 @@ function mask() {
     }
 
     function hide($element, callback) {
+        if (typeof $element === "string") {
+            $element = $($element);
+        }
+
         var $mask = $element.children('.mask');
         $mask.fadeOut(500, function () {
             $mask.remove();
@@ -334,7 +342,7 @@ function mask() {
 window.mask = mask();
 
 $(document).ready(function() {
-    loadMessagesList(0, 20, false);
+    /*loadMessagesList(0, 20, false);*/
 
     $('#composeMessageModal').on('hidden.bs.modal', function(e) {
         $('#composeMessageModal form')[0].reset();
@@ -345,9 +353,14 @@ $(document).ready(function() {
     $loadMoreButton.viewportChecker({
         repeat: true,
         callbackFunction: function (element, action) {
-            if (action == 'add') {
+            if (action === 'add') {
                 $loadMoreButton.click();
             }
         }
     });
+
+    /*var listScroll = new IScroll('#list', {
+        mouseWheel: true,
+        scrollbars: true
+    });*/
 });

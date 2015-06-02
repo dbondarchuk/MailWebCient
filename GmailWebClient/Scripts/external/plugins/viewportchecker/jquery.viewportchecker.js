@@ -87,7 +87,7 @@
                 	elemEnd -= (objOptions.offset * 2);
 
                 // Add class if in viewport
-                if ((elemStart < viewportEnd) && (elemEnd > viewportStart)){
+                if ($obj.isOnScreen()){
 
                     // remove class
                     $obj.removeClass(objOptions.classToRemove);
@@ -108,8 +108,19 @@
 
         };
 
+        $.fn.isOnScreen = function () {
+            var viewport = {};
+            viewport.top = $(window).scrollTop();
+            viewport.bottom = viewport.top + $(window).height();
+            var bounds = {};
+            bounds.top = this.offset().top;
+            bounds.bottom = bounds.top + this.outerHeight();
+            return ((bounds.top <= viewport.bottom) && (bounds.bottom >= viewport.top));
+        };
+
         // Run checkelements on load and scroll
         $(window).bind("load scroll touchmove MSPointerMove", this.checkElements);
+        $elem.parent().bind("load scroll touchmove MSPointerMove", this.checkElements);
 
         // On resize change the height var
         $(window).resize(function(e){

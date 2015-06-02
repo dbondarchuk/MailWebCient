@@ -1,0 +1,19 @@
+﻿<a href="#" ng-click="loadMessage(message.uid)" onclick="return false;" data-uid="{{message.uid}}">
+    <div class="email-item pure-g" ng-class="{ selected : message.uid == $parent.values.message.uid, unread : message.rawFlags.indexOf('\\Seen') < 0}">
+        <div class="pure-u">
+
+            <img class="email-avatar" alt="{{ message.from.displayName || message.from.adress }}" height="64" width="64" src="/Images/avatar.png">
+
+        </div>
+        <div class="pure-u-3-4">
+
+            <h5 class="email-name">{{ message.from.displayName || message.from.adress }}</h5>
+            <h4 class="email-subject" ng-class="{ seen : message.rawFlags.indexOf('\\Seen') >= 0}">{{ message.subject }}</h4>
+            <!--<p class="email-desc">
+                {{ message.shortDescription }}
+            </p>-->
+
+
+        </div>
+    </div>
+</a>

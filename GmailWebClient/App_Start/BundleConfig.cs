@@ -8,23 +8,34 @@ namespace GmailWebClient
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
-            
-            bundles.Add(new ScriptBundle("~/bundles/bootstap").Include(
-                        "~/Scripts/bootstrap.min.js"));
+                        "~/Scripts/external/jquery/jquery-{version}.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/external/angular/angular*",
+                        "~/Scripts/internal/app.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                        "~/Scripts/external/bootstrap/bootstrap.*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
-                        "~/Scripts/jquery-ui-{version}.js"));
+                        "~/Scripts/external/jquery-ui/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/external/jqueryval/jquery.unobtrusive*",
+                        "~/Scripts/external/jqueryval/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                        "~/Scripts/external/plugins/modernizr/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/email").Include(
-                        "~/Scripts/handlebars-*", "~/Scripts/jquery.viewportchecker.js", "~/Scripts/main.js"));
+                        "~/Scripts/internal/controllers/emailController.js",
+                        "~/Scripts/internal/directives/*.js",
+                        "~/Scripts/internal/filters/*.js",
+                        "~/Scripts/internal/services/messageService.js",
+                        "~/Scripts/external/plugins/handlebars/handlebars-*",
+                        "~/Scripts/external/plugins/iscroll/iscroll*",
+                        "~/Scripts/external/plugins/viewportchecker/jquery.viewportchecker.js",
+                        "~/Scripts/internal/pages/main.js"));
 
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.min.css", "~/Content/bootstrap-theme.min.css"));
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include("~/Content/font-awesome.min.css"));

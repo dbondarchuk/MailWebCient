@@ -9,16 +9,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GmailClient">
+    <meta name="description" content="Mail Client">
 
-    <title>Gmail client</title>
+    <title>Mail client</title>
     @Styles.Render("~/Content/pure.min.css")
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap-theme.min.css")
     @Styles.Render("~/Content/email")
 </head>
-<body>
-
+<body ng-app="mailApp" ng-controller="emailController">
     <div id="layout" class="content pure-g">
         <div id="nav" class="pure-u">
             <a href="#" class="nav-menu-button">Menu</a>
@@ -30,7 +29,7 @@
                     <ul class="pure-menu-list" id="mailbox-list">
                         @foreach (var mailbox in (Mailbox[])Enum.GetValues(typeof(Mailbox)))
                         {
-                            <li class="pure-menu-item @(mailbox == Mailbox.Inbox ? "active" : "")" id="#Mailbox-@mailbox.ToString()" data-value="@((int)mailbox)"><a href="#" class="pure-menu-link" onclick="changeMailbox(@((int)mailbox)); return  false;">@mailbox.ToString()</a></li>
+                            <li class="pure-menu-item @(mailbox == Mailbox.Inbox ? "active" : "")" id="#Mailbox-@mailbox.ToString()" data-value="@((int)mailbox)"><a href="#" class="pure-menu-link" ng-click="changeMailbox(@((int)mailbox));">@mailbox.ToString()</a></li>
                         }
                     </ul>
                 </div>
@@ -38,11 +37,14 @@
         </div>
 
         <div id="list" class="pure-u-1">
-            <div class="list"></div>
-            <button id="load-more" class="primary-button pure-button" onclick="loadMessagesList(window.loaded + 1, 20);">Load more</button>
+            <div class="list">
+                <short-description ng-repeat="message in values.messages" info="message"></short-description>
+            </div>
+            <button id="load-more" class="primary-button pure-button" ng-click="loadMessagesList();">Load more</button>
         </div>
 
         <div id="main" class="pure-u-1">
+            <message info="values.message" ng-show="values.message"></message>
         </div>
     </div>
 
@@ -70,7 +72,8 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/bootstrap.min.js")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/email")
 
     <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,7 +139,5 @@
             </div>
         </div>
     </div>
-
-
 </body>
 </html>

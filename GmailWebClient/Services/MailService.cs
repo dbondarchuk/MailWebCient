@@ -25,7 +25,7 @@ namespace GmailWebClient.Services
                 
                 var endIndex = client.GetMessageCount() - 1 - skip;
                 var startIndex = endIndex - take + 1;
-                return client.GetMessages(startIndex, endIndex, false).Reverse().ToArray();
+                return client.GetMessages(startIndex, endIndex).Reverse().ToArray();
             }
         }
 
@@ -56,7 +56,7 @@ namespace GmailWebClient.Services
             
         }
 
-        public MailMessage GetMessage(UserProfile user, Mailbox mailbox, int uid)
+        public MailMessage GetMessage(UserProfile user, Mailbox mailbox, int uid, bool setSeen = true)
         {
             using (var client = CreateClient(user))
             {

@@ -13,6 +13,6 @@ namespace GmailWebClient.Services.Abstract
 
         void SendMessage(UserProfile user, MailMessage message);
 
-        MailMessage GetMessage(UserProfile user, Mailbox mailbox, int uid);
+        MailMessage GetMessage(UserProfile user, Mailbox mailbox, int uid, bool setSeen = true);
     }
 }

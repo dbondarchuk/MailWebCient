@@ -45,7 +45,7 @@
             if (jqXhr.status === 200) {
                 window.location.href = '@Url.Action("Index", "Home")';
             } else if (jqXhr.status === 400) {
-                //$('#error').fadeIn(300);
+                $('#error').fadeIn(300);
             }
         }
         

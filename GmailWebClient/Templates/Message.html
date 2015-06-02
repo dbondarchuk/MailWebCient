@@ -1,0 +1,39 @@
+﻿<div class="email-content">
+     
+    <div class="email-content-header pure-g">
+         
+        <div class="pure-u-1-2">
+             
+            <h1 class="email-content-title">{{values.message.subject}}</h1> 
+            <p class="email-content-subtitle">
+                From <a>{{values.message.from.displayName || values.message.from.address}}</a> at <span>{{ values.message.date | date : 'medium' }}</span> 
+            </p> 
+            <p class="email-content-subtitle" ng-show="values.message.to && values.message.to.length > 0">
+                TO: <span ng-repeat="address in values.message.to">{{ address.displayName || address.address }}; </span>
+            </p>
+            <p class="email-content-subtitle" ng-show="values.message.cc && values.message.cc.length > 0">
+                CC: <span ng-repeat="address in values.message.cc">{{ address.displayName || address.address }}; </span>
+            </p>
+            <p class="email-content-subtitle" ng-show="values.message.bcc && values.message.bcc.length > 0">
+                BCC: <span ng-repeat="address in values.message.bcc">{{ address.displayName || address.address }}; </span>
+            </p>
+            <p class="email-content-subtitle" ng-show="values.message.attachments && values.message.attachments.length > 0">
+                Attachments: <a ng-repeat="attachment in values.message.attachments" href="/Home/GetAttachment?uid={{values.message.uid}}&mailbox={{values.mailbox}}&attachmentId={{$index}}">{{attachment.filename}}; </a>
+            </p>
+            
+        </div> 
+        <div class="email-content-controls pure-u-1-2">
+             
+            <button class="secondary-button pure-button" ng-click="reply(values.message.uid, false);">Reply</button> 
+            <button class="secondary-button pure-button" ng-click="reply(values.message.uid, true);">Reply all</button> 
+            <button class="secondary-button pure-button" ng-click="forward(values.message.uid);">Forward</button> 
+            <button class="secondary-button pure-button" ng-click="delete(values.message.uid);">Delete</button> 
+            <!--<button class="secondary-button pure-button" onclick="reply({{uid}}; return false;">Move to</button> -->
+            
+        </div> 
+        
+    </div> 
+    <div class="email-content-body" ng-bind-html="(values.message.alternateViews[1].body || values.message.body) | messageBody">
+    </div> 
+    
+</div>

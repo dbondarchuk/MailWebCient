@@ -47,21 +47,22 @@ namespace GmailWebClient.Controllers
             return View();
         }
 
-        public JsonResult GetMessageList(Mailbox mailBox, int skip, int take)
+        public JsonNetResult GetMessageList(Mailbox mailBox, int skip, int take)
         {
             var messages = _mailService.GetMessages(UserProfile, mailBox, skip, take);
-
-            foreach (var mailMessage in messages)
-            {
-                mailMessage.Attachments = mailMessage.Attachments.Select(x => new Attachment("", "", x.Filename)).ToList();
-            }
             
-            return Json(messages, JsonRequestBehavior.AllowGet);
+            return new JsonNetResult(messages);
+        }
+        public JsonNetResult GetMessage(Mailbox mailBox, int uid)
+        {
+            var message = _mailService.GetMessage(UserProfile, mailBox, uid);
+            
+            return new JsonNetResult(message);
         }
 
         public ActionResult GetAttachment(Mailbox mailbox, int uid, int attachmentId)
         {
-            var message = _mailService.GetMessage(UserProfile, mailbox, uid);
+            var message = _mailService.GetMessage(UserProfile, mailbox, uid, false);
 
             if (attachmentId < 0 || attachmentId >=  message.Attachments.Count)
             {

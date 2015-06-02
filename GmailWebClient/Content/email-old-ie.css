@@ -176,11 +176,11 @@ a {
     margin: 0.4em 0;
 }
 
-.email-item-selected {
-    background: #eee;
+.email-item.selected {
+    color: #eee;
 }
 
-.email-item-unread {
+.email-item.unread {
     border-left: 6px solid #1b98f8;
 }
 

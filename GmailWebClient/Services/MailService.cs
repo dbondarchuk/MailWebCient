@@ -29,10 +29,12 @@ namespace GmailWebClient.Services
             }
         }
 
-        public void DeleteMessage(UserProfile user, string uid)
+        public void DeleteMessage(UserProfile user, Mailbox mailbox, string uid)
         {
             using (var client = CreateClient(user))
             {
+                client.SelectMailbox(mailbox.ToString().ToUpperInvariant());
+
                 client.DeleteMessage(uid);
             }
         }

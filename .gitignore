@@ -1,3 +1,7 @@
 /_ReSharper.GmailWebClient
 /*.user
 /*.suo
+/GmailWebClient/App_Data/aspnet-GmailWebClient-20150523105831_log.ldf
+/GmailWebClient/App_Data/aspnet-GmailWebClient-20150523105831.mdf
+*.ldf
+*.mdf

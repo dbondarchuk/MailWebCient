@@ -33,7 +33,7 @@ namespace GmailWebClient
                         "~/Scripts/internal/filters/*.js",
                         "~/Scripts/internal/services/messageService.js",
                         "~/Scripts/external/plugins/handlebars/handlebars-*",
-                        "~/Scripts/external/plugins/iscroll/iscroll*",
+                        "~/Scripts/external/plugins/jquery-tag/jquery.tagthis*",
                         "~/Scripts/external/plugins/viewportchecker/jquery.viewportchecker.js",
                         "~/Scripts/internal/pages/main.js"));
 
@@ -41,6 +41,7 @@ namespace GmailWebClient
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include("~/Content/font-awesome.min.css"));
             bundles.Add(new StyleBundle("~/Content/login").Include("~/Content/login.css"));
             bundles.Add(new StyleBundle("~/Content/email").Include("~/Content/email.css"));
+            bundles.Add(new StyleBundle("~/Content/jquery-tag").Include("~/Content/jquery-tag-this.css"));
             bundles.Add(new StyleBundle("~/Content/pure").Include("~/Content/pure.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

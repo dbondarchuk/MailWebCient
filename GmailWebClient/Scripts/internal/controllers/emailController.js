@@ -1,4 +1,14 @@
-﻿app.controller('emailController', ['$scope', 'messageService', function ($scope, messageService) {
+﻿app.controller('emailController', ['$scope', '$compile', 'messageService', function ($scope, $compile, messageService) {
+    function showAlert(type, message) {
+        var alert = angular.element(document.createElement('alert')),
+            alertScope = $scope.$new(true);
+
+        alertScope.type = type;
+        alertScope.message = message;
+        
+        angular.element(document.body).append($compile(alert)(alertScope));
+    }
+
     $scope.values = {
         userAddress: window.user.address,
         mailbox: 0,
@@ -42,6 +52,35 @@
 
         $scope.loadMessagesList();
     }
+
+    $scope.delete = function (uid) {
+        var result = confirm("Are you sure, that you want to delete message?");
+        if (!result) {
+            return false;
+        }
+
+        window.mask.show('body');
+        messageService.deleteMessage($scope.values.mailbox, uid).then(function (response) {
+            $scope.values.message = null;
+            for (var id in $scope.values.messages) {
+                var message = $scope.values.messages[id];
+                if (message.uid == uid) {
+                    $scope.values.messages.splice(id, 1);
+                    break;
+                }
+            }
+
+            showAlert('success', 'Message was successfully deleted!');
+
+            window.mask.hide('body');
+        }, function (error) {
+            showAlert('error', 'Some error was occured during deleting the message');
+
+            window.mask.hide('body');
+        });
+    }
+
+    
 
     angular.element(document).ready(function() {
         $scope.loadMessagesList();

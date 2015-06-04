@@ -318,9 +318,10 @@ a {
         position: absolute;
     }
 
-    body > .mask {
-        height: 100% !important;
-    }
+body > .mask {
+    height: 100% !important;
+}
+
 #main {
     width: 100%;
     min-height: 500px;
@@ -356,25 +357,25 @@ a {
 }
 
 #composeMessageModal .pure-form input[type=text],
-#composeMessageModal  .pure-form input[type=password],
-#composeMessageModal  .pure-form input[type=email],
-#composeMessageModal  .pure-form input[type=url],
-#composeMessageModal  .pure-form input[type=date],
-#composeMessageModal  .pure-form input[type=month],
-#composeMessageModal  .pure-form input[type=time],
-#composeMessageModal  .pure-form input[type=datetime],
-#composeMessageModal  .pure-form input[type=datetime-local],
-#composeMessageModal  .pure-form input[type=week],
-#composeMessageModal  .pure-form input[type=number],
-#composeMessageModal  .pure-form input[type=search],
-#composeMessageModal  .pure-form input[type=tel]
-#composeMessageModal , .pure-form input[type=color] {
+#composeMessageModal .pure-form input[type=password],
+#composeMessageModal .pure-form input[type=email],
+#composeMessageModal .pure-form input[type=url],
+#composeMessageModal .pure-form input[type=date],
+#composeMessageModal .pure-form input[type=month],
+#composeMessageModal .pure-form input[type=time],
+#composeMessageModal .pure-form input[type=datetime],
+#composeMessageModal .pure-form input[type=datetime-local],
+#composeMessageModal .pure-form input[type=week],
+#composeMessageModal .pure-form input[type=number],
+#composeMessageModal .pure-form input[type=search],
+#composeMessageModal .pure-form input[type=tel] #composeMessageModal, .pure-form input[type=color] {
     width: 35em;
+    min-height: 45px;
 }
 
-#composeMessageModal  .pure-form select, .pure-form textarea {
+#composeMessageModal .pure-form select, .pure-form textarea {
     height: 200px;
-    width: 50em;   
+    width: 50em;
 }
 
 .error {
@@ -390,4 +391,45 @@ a {
 
 .email-subject.seen {
     font-weight: normal;
+}
+
+.tag-this {
+    width: 35em;
+    display: inline-block;
+    min-height: 45px;
+    height: auto;
+    margin: 0;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 3px #ddd;
+    border-radius: 4px;
+    vertical-align: middle;
+    -webkit-transition: height 0.5s ease;
+    -moz-transition: height 0.5s ease;
+    -ms-transition: height 0.5s ease;
+    -o-transition: height 0.5s ease;
+    transition: height 0.5s ease;
+}
+
+    .tag-this input {
+        margin-bottom: 0;
+        width: 100px;
+        border: none !important;
+        -webkit-box-shadow: none !important;
+        -ms-box-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    .tag-this .tag {
+        padding: 7px;
+        margin-bottom: 0;
+        background: #F3F3F3;
+        color: #000;
+    }
+
+        .tag-this .tag button {
+            color: #000;
+        }
+
+.tag-this--error {
+    display: none;
 }

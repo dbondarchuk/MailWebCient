@@ -9,7 +9,7 @@ namespace GmailWebClient.Services.Abstract
     {
         IEnumerable<MailMessage> GetMessages(UserProfile user, Mailbox mailbox, int skip, int take);
 
-        void DeleteMessage(UserProfile user, string uid);
+        void DeleteMessage(UserProfile user, Mailbox mailbox, string uid);
 
         void SendMessage(UserProfile user, MailMessage message);
 

@@ -23,9 +23,21 @@
             return promise;
         };
 
+        var deleteMessage = function(mailbox, uid) {
+            var promise = $http.get('/Home/DeleteMessage', {
+                params: {
+                    mailbox: mailbox,
+                    uid: uid
+                }
+            });
+
+            return promise;
+        }
+
         return {
             loadMore: loadMore,
-            getMessage: getMessage
+            getMessage: getMessage,
+            deleteMessage: deleteMessage
         }
     }
 ]);

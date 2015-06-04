@@ -74,15 +74,20 @@ namespace GmailWebClient.Controllers
             return File(attachment.GetData(), attachment.ContentType, attachment.Filename);
         }
 
-        public HttpStatusCodeResult DeleteMessage(int uid)
+        public HttpStatusCodeResult DeleteMessage(Mailbox mailbox, int uid)
         {
-            _mailService.DeleteMessage(UserProfile, uid.ToString());
+            _mailService.DeleteMessage(UserProfile, mailbox, uid.ToString());
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         public HttpStatusCodeResult SendMessage(MailMessageModel message)
         {
+            if (!ModelState.IsValid)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             var mailMessage = new MailMessage
                                   {
                                       Body = message.Body,

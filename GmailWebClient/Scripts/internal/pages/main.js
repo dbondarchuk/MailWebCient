@@ -114,7 +114,7 @@ function loadMessage(uid) {
         $('#main').html($insertion);
     } finally {
         window.mask.hide($('#main'));
-    } 
+    }
 }
 
 function reply(uid, toAll) {
@@ -129,20 +129,20 @@ function reply(uid, toAll) {
         for (var i in message.Cc) {
             cc += message.Cc[i].Address + '; ';
         }
-        
+
         for (var i in message.To) {
             if (message.To[i].Address != window.user.address) {
                 cc += message.To[i].Address + '; ';
             }
         }
-        
+
         if (cc.substring(cc.length - 2, cc.length - 1) == '; ') {
             cc = cc.substring(0, cc.length - 2);
         }
 
         return cc;
     }
-    
+
     $('#To').val(message.From.Address);
     $('#Subject').val('RE: ' + message.Subject);
     $('#Cc').val(getCc());
@@ -197,7 +197,7 @@ function deleteMessage(uid) {
         data: {
             uid: uid
         },
-        beforeSend: function() {
+        beforeSend: function () {
             var r = confirm("Are you sure, that you want to delete message?");
             if (!r) {
                 return false;
@@ -205,7 +205,7 @@ function deleteMessage(uid) {
 
             window.mask.show($('body'));
         },
-        success: function() {
+        success: function () {
             window.loaded--;
             window.messages.splice(window.messages.indexOf(window.messages[uid]), 1);
             $('#main').html('');
@@ -220,18 +220,18 @@ function deleteMessage(uid) {
                 '</div>' +
                 '</div>');
 
-            $alert.find('.close').click(function() {
-                $alert.fadeOut(500, function() {
+            $alert.find('.close').click(function () {
+                $alert.fadeOut(500, function () {
                     $alert.remove();
                 });
             });
 
             $('body').append($alert);
-            setTimeout(function() {
+            setTimeout(function () {
                 $alert.find('.close').click();
             }, 10000);
         },
-        complete: function() {
+        complete: function () {
             window.mask.hide($('body'));
         }
     });
@@ -341,11 +341,14 @@ function mask() {
 
 window.mask = mask();
 
-$(document).ready(function() {
+$(document).ready(function () {
     /*loadMessagesList(0, 20, false);*/
 
-    $('#composeMessageModal').on('hidden.bs.modal', function(e) {
+    $('#composeMessageModal').on('hidden.bs.modal', function (e) {
         $('#composeMessageModal form')[0].reset();
+        $('#To').clearAllTags();
+        $('#Cc').clearAllTags();
+        $('#Bcc').clearAllTags();
     });
 
     var $loadMoreButton = $('#load-more');
@@ -358,6 +361,26 @@ $(document).ready(function() {
             }
         }
     });
+
+    var tagAddressMapper = function (val, i) {
+                    return val.text;
+                };
+
+    $('#To, #Cc, #Bcc').tagThis({
+        noDuplicates: true,
+        email: true,
+        defaultText: '',
+        createTagWith: [44, 59], // coma and semi-colon
+        callbacks: {
+            onChange: function(data) {
+                data.context.val(data.tags.map(tagAddressMapper).join(';'));
+            }
+        }
+    });
+
+
+    var validator = $('#compose-form').validate();
+    validator.settings.ignore = "";
 
     /*var listScroll = new IScroll('#list', {
         mouseWheel: true,

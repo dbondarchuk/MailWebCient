@@ -15,6 +15,7 @@
     @Styles.Render("~/Content/pure.min.css")
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap-theme.min.css")
+    @Styles.Render("~/Content/jquery-tag")
     @Styles.Render("~/Content/email")
 </head>
 <body ng-app="mailApp" ng-controller="emailController">
@@ -40,7 +41,7 @@
             <div class="list">
                 <short-description ng-repeat="message in values.messages" info="message"></short-description>
             </div>
-            <button id="load-more" class="primary-button pure-button" ng-click="loadMessagesList();">Load more</button>
+            <button id="load-more" class="primary-button pure-button" ng-click="loadMessagesList();" ng-show="values.messages.length > 0">Load more</button>
         </div>
 
         <div id="main" class="pure-u-1">
@@ -72,6 +73,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery-tag")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/email")
@@ -86,7 +88,7 @@
                                                                           OnComplete = "onCompleteMessageSent",
                                                                           OnSuccess = "onSuccessSentMessage",
                                                                           OnFailure = "onFailedSentMessage"
-                                                                      }, new { @class = "pure-form pure-form-aligned", enctype = "multipart/form-data" }))
+                                                                      }, new { @class = "pure-form pure-form-aligned", enctype = "multipart/form-data", id="compose-form"}))
                 {
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -102,19 +104,19 @@
                             </div>
 
                             <div class="pure-control-group">
-                                @Html.LabelFor(x => x.To)
+                                @Html.LabelFor(x => x.To, new { @for = "To--tag" })
                                 @Html.TextBoxFor(x => x.To)
                                 @Html.ValidationMessageFor(x => x.To)
                             </div>
 
                             <div class="pure-control-group">
-                                @Html.LabelFor(x => x.Cc)
+                                @Html.LabelFor(x => x.Cc, new { @for = "Cc--tag" })
                                 @Html.TextBoxFor(x => x.Cc)
                                 @Html.ValidationMessageFor(x => x.Cc)
                             </div>
 
                             <div class="pure-control-group">
-                                @Html.LabelFor(x => x.Bcc)
+                                @Html.LabelFor(x => x.Bcc, new { @for = "Bcc--tag" })
                                 @Html.TextBoxFor(x => x.Bcc)
                                 @Html.ValidationMessageFor(x => x.Bcc)
                             </div>

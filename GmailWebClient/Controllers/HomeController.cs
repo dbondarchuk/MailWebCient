@@ -10,6 +10,7 @@ using GmailWebClient.Models;
 using GmailWebClient.Services;
 using GmailWebClient.Services.Abstract;
 using GmailWebClient.Services.Models;
+using WebMatrix.WebData;
 using Attachment = AE.Net.Mail.Attachment;
 using MailMessage = AE.Net.Mail.MailMessage;
 
@@ -27,18 +28,20 @@ namespace GmailWebClient.Controllers
             {
                 if (_user == null)
                 {
-                    var dataContext = new UsersContext();
-                    _user = dataContext.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
-
-                    if (_user == null)
+                    using (var dataContext = new UsersContext())
                     {
-                        throw new HttpException((int)HttpStatusCode.Unauthorized, "Unauthorized");
+                        _user = dataContext.UserProfiles.FirstOrDefault(x => x.UserName == User.Identity.Name);
+
+                        if (_user == null)
+                        {
+                            throw new HttpException((int)HttpStatusCode.Unauthorized, "Unauthorized");
+                        }
                     }
                 }
 
                 return _user;
             }
-        } 
+        }
 
         public ActionResult Index()
         {
@@ -50,13 +53,13 @@ namespace GmailWebClient.Controllers
         public JsonNetResult GetMessageList(Mailbox mailBox, int skip, int take)
         {
             var messages = _mailService.GetMessages(UserProfile, mailBox, skip, take);
-            
+
             return new JsonNetResult(messages);
         }
         public JsonNetResult GetMessage(Mailbox mailBox, int uid)
         {
             var message = _mailService.GetMessage(UserProfile, mailBox, uid);
-            
+
             return new JsonNetResult(message);
         }
 
@@ -64,7 +67,7 @@ namespace GmailWebClient.Controllers
         {
             var message = _mailService.GetMessage(UserProfile, mailbox, uid, false);
 
-            if (attachmentId < 0 || attachmentId >=  message.Attachments.Count)
+            if (attachmentId < 0 || attachmentId >= message.Attachments.Count)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -100,7 +103,7 @@ namespace GmailWebClient.Controllers
 
                 if (!string.IsNullOrWhiteSpace(address))
                 {
-                    mailMessage.To.Add(new MailAddress(address));                    
+                    mailMessage.To.Add(new MailAddress(address));
                 }
             }
 
@@ -139,23 +142,37 @@ namespace GmailWebClient.Controllers
                 }
             }
 
+            var currentUserId = UserProfile.UserId;
+            var addresses = mailMessage.To.Union(mailMessage.Cc).Union(mailMessage.Bcc);
+            var context = new UsersContext();
+
+            var addressesToAdd =
+                addresses.Where(
+                    x => !context.Contacts.Any(y => y.Address == x.Address && y.UserId == currentUserId)).ToList();
+
+            if (addressesToAdd.Any())
+            {
+                foreach (var address in addressesToAdd)
+                {
+                    context.Contacts.Add(new Contact { Address = address.Address, UserId = currentUserId });
+                }
+            }
+
+            context.SaveChanges();
+
             _mailService.SendMessage(UserProfile, mailMessage);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public ActionResult About()
+        public JsonNetResult GetAddressList(string term)
         {
-            ViewBag.Message = "Your app description page.";
+            var userId = UserProfile.UserId;
+            var context = new UsersContext();
+            var contacts = context.Contacts.Where(x => x.UserId == userId 
+                && x.Address.ToLower().Contains(term.ToLower())).Take(10).Select(x => x.Address);
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return new JsonNetResult(contacts);
         }
 
         private static byte[] ReadFully(Stream input)

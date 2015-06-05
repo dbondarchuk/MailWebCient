@@ -190,6 +190,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506051036367_AddedContacts.cs" />
+    <Compile Include="Migrations\201506051036367_AddedContacts.Designer.cs">
+      <DependentUpon>201506051036367_AddedContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\JsonNetResult.cs" />
     <Compile Include="Models\MailMessageModel.cs" />
@@ -199,6 +204,7 @@
     <Content Include="Scripts\external\plugins\jquery-tag\jquery.tagthis.js" />
     <Content Include="Scripts\external\plugins\jquery-tag\jquery.tagthis.min.js" />
     <Content Include="Scripts\internal\directives\alertDirective.js" />
+    <Content Include="Scripts\internal\directives\composeMessageDirective.js" />
     <Content Include="Scripts\internal\filters\messageBodyFilter.js" />
     <Compile Include="Services\Abstract\IMailService.cs" />
     <Compile Include="Services\MailService.cs" />
@@ -255,6 +261,8 @@
     <Content Include="Scripts\internal\pages\main.js" />
     <Content Include="Scripts\external\plugins\modernizr\modernizr-2.6.2.js" />
     <Content Include="Scripts\internal\services\messageService.js" />
+    <Content Include="Templates\TagInput.html" />
+    <Content Include="Templates\Compose.html" />
     <Content Include="Templates\Alert.html" />
     <Content Include="Templates\Message.html" />
     <Content Include="Templates\ShortDescription.html" />
@@ -298,6 +306,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506051036367_AddedContacts.resx">
+      <DependentUpon>201506051036367_AddedContacts.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

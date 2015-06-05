@@ -117,7 +117,7 @@ function loadMessage(uid) {
     }
 }
 
-function reply(uid, toAll) {
+/*function reply(uid, toAll) {
     var message = messages[uid];
 
     function getCc() {
@@ -150,7 +150,7 @@ function reply(uid, toAll) {
     $('#Body').val(getOriginalMessageBody(message));
 
     $('#composeMessageModal').modal('show');
-}
+}*/
 
 function forward(uid) {
     var message = messages[uid];
@@ -362,7 +362,7 @@ $(document).ready(function () {
         }
     });
 
-    var tagAddressMapper = function (val, i) {
+   /* var tagAddressMapper = function (val, i) {
                     return val.text;
                 };
 
@@ -376,11 +376,11 @@ $(document).ready(function () {
                 data.context.val(data.tags.map(tagAddressMapper).join(';'));
             }
         }
-    });
+    });*/
 
 
-    var validator = $('#compose-form').validate();
-    validator.settings.ignore = "";
+    /*var validator = $('#compose-form').validate();
+    validator.settings.ignore = "";*/
 
     /*var listScroll = new IScroll('#list', {
         mouseWheel: true,

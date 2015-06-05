@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Globalization;
 using System.Web.Security;
 
@@ -16,6 +18,8 @@ namespace GmailWebClient.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+
+        public DbSet<Contact> Contacts { get; set; } 
     }
 
     [Table("UserProfile")]
@@ -27,6 +31,16 @@ namespace GmailWebClient.Models
         public string UserName { get; set; }
         public string GmailAccount { get; set; }
         public string GmailPassword { get; set; }
+    }
+
+    [Table("Contact")]
+    public class Contact
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
+        public int UserId { get; set; }
+        public string Address { get; set; }
     }
 
     public class RegisterExternalLoginModel

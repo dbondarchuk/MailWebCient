@@ -34,10 +34,23 @@
             return promise;
         }
 
+        var sendMessage = function(subject, to, cc, bcc, body) {
+            var promise = $http.post('/Home/SendMessage', {
+                subject: subject,
+                to: to,
+                cc: cc,
+                bcc: bcc,
+                body: body
+            });
+
+            return promise;
+        }
+
         return {
             loadMore: loadMore,
             getMessage: getMessage,
-            deleteMessage: deleteMessage
+            deleteMessage: deleteMessage,
+            sendMessage: sendMessage
         }
     }
 ]);

@@ -1,0 +1,55 @@
+﻿<div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form name="composeForm" id="compose-form" class="pure-form pure-form-aligned" novalidate>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="composeMessageModalLabel">Compose message</h4>
+                </div>
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" ng-model="compose.subject" name="subject" id="subject" required ng-trim="true" />
+                        <span class="field-validation-error" ng-show="composeForm.$dirty && composeForm.subject.$dirty && composeForm.subject.$error.required">Subject is required</span>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <div class="pure-control-group">
+                            <label for="to--tag">To</label>
+                            <input type="text" data-type="email" ng-model="compose.to" name="to" id="to" required ng-pattern="emailRegex" />
+                            <span class="field-validation-error" ng-show="composeForm.$dirty && composeForm.to.$dirty && composeForm.to.$error.required">To is required</span>
+                            <span class="field-validation-error" ng-show="composeForm.$dirty && composeForm.to.$dirty && composeForm.to.$error.pattern && !composeForm.to.$error.required">Please match correct email addresses separeted by ';'</span>
+                        </div>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <div class="pure-control-group">
+                            <label for="cc--tag">Cc</label>
+                            <input type="text" data-type="email" ng-model="compose.cc" name="cc" id="cc" ng-pattern="emailRegex" />
+                            <span class="field-validation-error" ng-show="composeForm.$dirty && composeForm.to.$dirty && composeForm.to.$error.pattern">Please match correct email addresses separeted by ';'</span>
+                        </div>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <div class="pure-control-group">
+                            <label for="bcc--tag">Bcc</label>
+                            <input type="text" data-type="email" ng-model="compose.bcc" name="bcc" id="bcc" ng-pattern="emailRegex" />
+                            <span class="field-validation-error" ng-show="composeForm.$dirty && composeForm.to.$dirty && composeForm.to.$error.pattern">Please match correct email addresses separeted by ';'</span>
+                        </div>
+                    </div>
+
+                    <div class="pure-control-group">
+                        <div class="pure-control-group">
+                            <label for="body">Body</label>
+                            <textarea ng-model="compose.body" name="body" id="body"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="modal-footer">
+                    <button type="button" class="pure-button" data-dismiss="modal">Cancel</button>
+                    <button type="button" ng-click="send();" ng-disabled="composeForm.$invalid" class="primary-button pure-button">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

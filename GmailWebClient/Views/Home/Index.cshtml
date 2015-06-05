@@ -73,12 +73,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jquery-tag")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/email")
+    <compose></compose>
 
-    <div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+@*<div class="modal fade" id="composeMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 @using (Ajax.BeginForm("SendMessage", null, new AjaxOptions
@@ -121,10 +124,10 @@
                                 @Html.ValidationMessageFor(x => x.Bcc)
                             </div>
 
-                            @*<div class="pure-control-group">
+                            $1$<div class="pure-control-group">
                                 @Html.LabelFor(x => x.Attachments)
                                 @Html.TextBoxFor(x => x.Attachments, new { type = "file", multiple = "multiple"})
-                            </div>*@
+                            </div>#1#
 
                             <div class="pure-control-group">
                                 @Html.LabelFor(x => x.Body)
@@ -140,6 +143,6 @@
                 }
             </div>
         </div>
-    </div>
+    </div>*@
 </body>
 </html>

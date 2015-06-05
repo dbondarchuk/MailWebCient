@@ -453,7 +453,10 @@
                 if (data.id){
 
                     //remove the physical tag
-                    $('#tag-this--'+ id +' .tag[data-id="'+ data.id +'"]').remove();
+                    var $tag = $('#tag-this--' + id + ' .tag[data-id="' + data.id + '"]');
+                    $tag.fadeOut(200, function () {
+                        $tag.remove();
+                    });
 
                     //remove it from the object
                     for (var i=0; i < tags.length; i++) {
@@ -465,9 +468,12 @@
                 //otherwise just find the text to determine which tag to remove
                 else{
                     //remove physical tag
-                    $('#tag-this--'+ id +' .tag').each(function(){
-                        if ($(this).find('span').text() === data){
-                            $(this).remove();
+                    $('#tag-this--'+ id +' .tag').each(function() {
+                        var $el = $(this);
+                        if ($el.find('span').text() === data){
+                            $el.fadeOut(200, function() {
+                                 $el.remove();
+                            });
                         }
                     });
                     //remove from object

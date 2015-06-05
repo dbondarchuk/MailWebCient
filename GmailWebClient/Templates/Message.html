@@ -24,10 +24,10 @@
         </div> 
         <div class="email-content-controls pure-u-1-2">
              
-            <button class="secondary-button pure-button" ng-click="reply(values.message.uid, false);">Reply</button> 
-            <button class="secondary-button pure-button" ng-click="reply(values.message.uid, true);">Reply all</button> 
-            <button class="secondary-button pure-button" ng-click="forward(values.message.uid);">Forward</button> 
-            <button class="secondary-button pure-button" ng-click="delete(values.message.uid);">Delete</button> 
+            <button class="secondary-button pure-button" ng-click="reply(false);">Reply</button> 
+            <button class="secondary-button pure-button" ng-click="reply(true);">Reply all</button> 
+            <button class="secondary-button pure-button" ng-click="forward();">Forward</button> 
+            <button class="secondary-button pure-button" ng-click="delete();">Delete</button> 
             <!--<button class="secondary-button pure-button" onclick="reply({{uid}}; return false;">Move to</button> -->
             
         </div> 
